@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "build": "next build && npx prisma generate && npx prisma migrate deploy && npx prisma db seed",
+    "build:production": "prisma generate && prisma db push && next build",
+    "build": "prisma generate && next build",
+    "postinstall": "prisma generate",
     "prisma:generate": "prisma generate",
     "prisma:deploy": "prisma migrate deploy",
     "start": "next start",
