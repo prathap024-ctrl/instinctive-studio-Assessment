@@ -52,4 +52,3 @@ npm run dev
 Show incident metadata (camera, type, timestamp) in tooltip
 Integrate user authentication and audit logs
 Export or download incident reports as PDF/CSV
-
