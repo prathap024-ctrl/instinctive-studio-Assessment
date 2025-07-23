@@ -3,21 +3,23 @@ services:
     image: postgres
     restart: always
     environment:
-      POSTGRES_PASSWORD: root
+      POSTGRES_PASSWORD: postgres
       POSTGRES_USER: postgres
       POSTGRES_DB: secure_sight
     ports:
       - 5432:5432
     volumes:
       - pd_data:/var/lib/postgresql/data
-    depends_on:
-      - adminer
 
-  adminer:
-    image: adminer
-    restart: always
+  web:
+    build: .
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: "postgresql://postgres:postgres@db:5432/secure_sight"
     ports:
-      - 8080:8080
+      - "3000:3000"
+    command: sh -c "npx prisma generate && npm run build && npm start"
 
 volumes:
   pd_data:

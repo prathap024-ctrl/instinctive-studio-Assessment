@@ -1,15 +1,7 @@
-// app/components/IncidentPlayer.tsx
-import ThumbnailStrip from "./ThumbnailStrip";
-import TimelineWrapper from "./timelineWrapper";
-import { PrismaClient } from "@prisma/client";
 
-const prisma = new PrismaClient();
+import ThumbnailStrip from "./ThumbnailStrip";
 
 export default async function IncidentPlayer() {
-  const incidents = await prisma.incident.findMany({
-    orderBy: { tsStart: "asc" },
-  });
-
   return (
     <>
       <div className="bg-gray-900 text-white rounded-xl shadow p-4">
@@ -19,9 +11,6 @@ export default async function IncidentPlayer() {
         </video>
 
         <ThumbnailStrip image="/thumbnails/thumb1.jpg" className="z-50" />
-      </div>
-      <div className="text-white mt-24 rounded-lg flex justify-center items-center">
-        <TimelineWrapper incidents={incidents} />
       </div>
     </>
   );
