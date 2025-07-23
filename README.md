@@ -1,7 +1,14 @@
 **Deployment instrucments**
 
 **Create a .env file:**
-DATABASE_URL=postgresql://<user>:<password>@localhost:5432/<db_name>?schema=public
+**Supabase**
+
+# Connect to Supabase via connection pooling
+DATABASE_URL=
+
+# Direct connection to the database. Used for migrations
+DIRECT_URL=
+
 
 **Run Prisma Migrations and Seed**
 npx prisma generate
@@ -9,34 +16,6 @@ npx prisma migrate dev --name init
 npx prisma db seed
 
 Note: You can modify the seed script in prisma/seed.js.
-
-
-**Docker-compose**
-
-
-services:
-  db:
-    image: postgres
-    restart: always
-    environment:
-      POSTGRES_PASSWORD: 
-      POSTGRES_USER: 
-      POSTGRES_DB: 
-    ports:
-      - 5432:5432
-    volumes:
-      - pd_data:/var/lib/postgresql/data
-    depends_on:
-      - adminer
-
-  adminer:
-    image: adminer
-    restart: always
-    ports:
-      - 8080:8080
-
-volumes:
-  pd_data:
 
 
 **Start the App**
