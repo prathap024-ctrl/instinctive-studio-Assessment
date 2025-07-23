@@ -10,7 +10,7 @@ export default async function IncidentPlayer() {
           <source src="/cctv.mp4" type="video/mp4" />
         </video>
 
-        <ThumbnailStrip image="/thumbnails/thumb1.jpg" className="z-50" />
+        <ThumbnailStrip />
       </div>
     </>
   );
