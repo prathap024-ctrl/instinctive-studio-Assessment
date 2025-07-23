@@ -1,36 +1,55 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+**Deployment instrucments**
 
-## Getting Started
+**Create a .env file:**
+DATABASE_URL=postgresql://<user>:<password>@localhost:5432/<db_name>?schema=public
 
-First, run the development server:
+**Run Prisma Migrations and Seed**
+npx prisma generate
+npx prisma migrate dev --name init
+npx prisma db seed
 
-```bash
+Note: You can modify the seed script in prisma/seed.js.
+
+**Docker-compose**
+
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: 
+      POSTGRES_USER: 
+      POSTGRES_DB: 
+    ports:
+      - 5432:5432
+    volumes:
+      - pd_data:/var/lib/postgresql/data
+    depends_on:
+      - adminer
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+
+volumes:
+  pd_data:
+
+
+**Start the App**
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+**Tech decisions**
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+**Frontend**	Next.js 15 App Router + Tailwind CSS	Modern React features
+**Backend**	Prisma ORM + PostgreSQL	Type-safe DB access, easy seed/migrate
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+**If I had more time… (quick bullets for future improvements)**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Show incident metadata (camera, type, timestamp) in tooltip
+Integrate user authentication and audit logs
+Export or download incident reports as PDF/CSV
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
