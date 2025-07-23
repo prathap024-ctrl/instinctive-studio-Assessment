@@ -10,7 +10,9 @@ npx prisma db seed
 
 Note: You can modify the seed script in prisma/seed.js.
 
+
 **Docker-compose**
+
 
 services:
   db:
